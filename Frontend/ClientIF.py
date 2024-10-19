@@ -33,6 +33,7 @@ class ClientIF():
     def login(self, args):
         """Login to your account: login <username> <password>"""
         username, password = args.split()
+        print(f"****************:::     {self.base_url}/login/")
         response = self.session.post(f"{self.base_url}/login/", data={'username': username, 'password': password})
         if response.status_code == 200:
             self.is_logged_in = True

@@ -31,6 +31,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    "channels",
     "Backend.MessageTranslator",
     "Backend.Authentication",
     "Backend.GameManagement",
@@ -41,6 +42,22 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
 ]
+
+# TODO: For local development
+CHANNEL_LAYERS = {
+    'default': {
+        'BACKEND': 'channels.layers.InMemoryChannelLayer',
+    },
+}
+
+#CHANNEL_LAYERS = {
+#    'default': {
+#        'BACKEND': 'channels_redis.core.RedisChannelLayer',
+#        'CONFIG': {
+#            "hosts": [("127.0.0.1", 6379)],  # Adjust if Redis is on a different server or port
+#        },
+#    },
+#}
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
@@ -70,6 +87,7 @@ TEMPLATES = [
     },
 ]
 
+ASGI_APPLICATION = "clue_less.asgi.application"
 WSGI_APPLICATION = "clue_less.wsgi.application"
 
 

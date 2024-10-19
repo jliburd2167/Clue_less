@@ -1,5 +1,12 @@
 import cmd
 import ClientIF
+import websocket
+import threading
+import json
+
+SERVER_IP = "127.0.0.1:8000"
+SERVER_URL = f"http://{SERVER_IP}"
+WS_URL = f"ws://{SERVER_URL}ws/notifications/"
 
 class cmdClientIF(cmd.Cmd):
 
@@ -19,6 +26,32 @@ class cmdClientIF(cmd.Cmd):
     def __init__(self, base_url):
         super().__init__()
         self.client = ClientIF.ClientIF(base_url)
+        self.websocket_thread = threading.Thread(target=self.start_websocket, daemon=True)
+        self.websocket_thread.start()  # Start the WebSocket listener in a separate thread
+
+    def start_websocket(self):
+        #websocket_url = WS_URL
+        websocket_url = "ws://127.0.0.1:8000/ws/notifications/"
+        ws = websocket.WebSocketApp(websocket_url,
+                                    on_open=self.on_open,
+                                    on_message=self.on_message,
+                                    on_error=self.on_error,
+                                    on_close=self.on_close)
+        ws.run_forever()
+
+    def on_message(self, ws, message):
+        data = json.loads(message)
+        print(f"\nNotification: {data['message']}")  # Print the notification message
+        print(self.prompt, end='')  # Reprint the prompt after displaying the notification
+
+    def on_error(self, ws, error):
+        print(f"Error: connection error being called...{error}")
+
+    def on_close(self, ws):
+        print("Connection closed")
+
+    def on_open(self, ws):
+        print("Connected to WebSocket")
 
     def do_register(self, args):
         """Register a new account: register <username> <password> <re-enter Password>"""
@@ -36,7 +69,7 @@ class cmdClientIF(cmd.Cmd):
         """Send a message to another user: send <username> <message>"""
         self.client.send(message)
 
-    def do_senToAll(self, message):
+    def do_sendToAll(self, message):
         """Send a message to all connected users: send_to_all <message>"""
         self.client.senToAll(message)
 
@@ -66,11 +99,10 @@ class cmdClientIF(cmd.Cmd):
         pass
 
     def do_exit(self, arg):
-        'Exit the CLI: exit'
+        "Exit the CLI: exit"
         print("Thank you. Goodbye!")
         return True
 
-if __name__ == '__main__':
-    SERVER_URL = "http://127.0.0.1:8000/"
+if __name__ == "__main__":
     cli = cmdClientIF(SERVER_URL)  # Adjust the base URL as needed
     cli.cmdloop()

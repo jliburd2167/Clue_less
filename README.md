@@ -18,7 +18,8 @@ JHU Foundations of Software Engineering Team Project
 
  Create a new conda environment using the clue_release_env.yml file.
 
-    conda env create -f clue_env_release.yml -n clue_release
+    conda env create -f clue_release_env.yml -n clue_release
+
 note: This step only needs to be done once.
 
     conda activate clue_release
@@ -33,3 +34,12 @@ If you make any changes to the dependencies, remember to update the clue_env_rel
 
 	conda env export > clue_env_release.yml
 
+## Launching the Environment
+
+Navigate to the root directory of the repository and type the following command from inside the clue_release environment to lauch the server application:
+
+	daphne clue_less.asgi:application
+
+In a new terminal, navigate to the Client directory and type the following command to launch the client Command Line Interface:
+
+	python ClientCli.py
