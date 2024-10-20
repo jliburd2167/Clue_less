@@ -43,3 +43,17 @@ Navigate to the root directory of the repository and type the following command 
 In a new terminal, navigate to the Client directory and type the following command to launch the client Command Line Interface:
 
 	python ClientCli.py
+
+
+## Django Admin Interface
+
+1. Create a Super user account
+
+Navigate to the root of the project repository and type the following command
+
+	python manage.py createsuperuser
+
+2. Once you have created your super user account, launch the server app using the steps outlined above.
+
+3. Open Your Web Browser: Navigate to http://127.0.0.1:8000/admin/.
+

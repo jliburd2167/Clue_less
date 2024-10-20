@@ -1,9 +1,4 @@
 from django.contrib import admin
-from .models import Player
-
-
-
-from django.contrib import admin
 from .models import Player, Card, GameSession, Weapon
 
     # Register the models with the customized PlayerAdmin class

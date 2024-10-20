@@ -6,7 +6,7 @@ import json
 
 SERVER_IP = "127.0.0.1:8000"
 SERVER_URL = f"http://{SERVER_IP}"
-WS_URL = f"ws://{SERVER_URL}ws/notifications/"
+WS_URL = f"ws://{SERVER_IP}/ws/notifications/"
 
 class cmdClientIF(cmd.Cmd):
 
@@ -30,8 +30,7 @@ class cmdClientIF(cmd.Cmd):
         self.websocket_thread.start()  # Start the WebSocket listener in a separate thread
 
     def start_websocket(self):
-        #websocket_url = WS_URL
-        websocket_url = "ws://127.0.0.1:8000/ws/notifications/"
+        websocket_url = WS_URL
         ws = websocket.WebSocketApp(websocket_url,
                                     on_open=self.on_open,
                                     on_message=self.on_message,
