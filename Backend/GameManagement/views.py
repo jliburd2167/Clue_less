@@ -38,7 +38,7 @@ class CreateGameView(View):
         # TODO: THIS IS A STUB
         # TODO: THIS IS A STUB
 
-        return JsonResponse({'message': 'This is a stub for the command "create_game".'}, status=200)
+        return JsonResponse({'message': 'This feature has not been implemented yet.'}, status=200)
 
 class JoinGameView(View):
     """
@@ -65,7 +65,7 @@ class JoinGameView(View):
         # TODO: THIS IS A STUB
         # TODO: THIS IS A STUB
 
-        return JsonResponse({'message': 'This is a stub for the command "join_game <key>".'}, status=200)
+        return JsonResponse({'message': 'This feature has not been implemented yet.'}, status=200)
     
 class LeaveGameView(View):
     """
@@ -92,7 +92,7 @@ class LeaveGameView(View):
         # TODO: THIS IS A STUB
         # TODO: THIS IS A STUB
 
-        return JsonResponse({'message': 'This is a stub for the command "leave_game".'}, status=200)
+        return JsonResponse({'message': 'This feature has not been implemented yet.'}, status=200)
     
 class StartGameView(View):
     """
@@ -119,7 +119,7 @@ class StartGameView(View):
         # TODO: THIS IS A STUB
         # TODO: THIS IS A STUB
 
-        return JsonResponse({'message': 'This is a stub for the command "start_game".'}, status=200)
+        return JsonResponse({'message': 'This feature has not been implemented yet.'}, status=200)
     
 class ChooseCharacterView(View):
     """
@@ -146,4 +146,64 @@ class ChooseCharacterView(View):
         # TODO: THIS IS A STUB
         # TODO: THIS IS A STUB
 
-        return JsonResponse({'message': 'This is a stub for the command "choose_character".'}, status=200)
+        return JsonResponse({'message': 'This feature has not been implemented yet.'}, status=200)
+    
+class PlayerMoveView(View):
+
+    def post(self, request) -> JsonResponse:
+
+        # TODO: THIS IS A STUB
+        # TODO: THIS IS A STUB
+        # TODO: THIS IS A STUB
+
+        return JsonResponse({'message': 'This feature has not been implemented yet.'}, status=200)
+    
+class MakeSuggestionView(View):
+
+    def post(self, request) -> JsonResponse:
+
+        # TODO: THIS IS A STUB
+        # TODO: THIS IS A STUB
+        # TODO: THIS IS A STUB
+
+        return JsonResponse({'message': 'This feature has not been implemented yet.'}, status=200)
+    
+class MakeAccusationView(View):
+
+    def post(self, request) -> JsonResponse:
+
+        # TODO: THIS IS A STUB
+        # TODO: THIS IS A STUB
+        # TODO: THIS IS A STUB
+
+        return JsonResponse({'message': 'This feature has not been implemented yet.'}, status=200)
+    
+class EndTurnView(View):
+
+    def post(self, request) -> JsonResponse:
+
+        # TODO: THIS IS A STUB
+        # TODO: THIS IS A STUB
+        # TODO: THIS IS A STUB
+
+        return JsonResponse({'message': 'This feature has not been implemented yet.'}, status=200)
+    
+class EndGameEarlyRequestView(View):
+
+    def post(self, request) -> JsonResponse:
+
+        # TODO: THIS IS A STUB
+        # TODO: THIS IS A STUB
+        # TODO: THIS IS A STUB
+
+        return JsonResponse({'message': 'This feature has not been implemented yet.'}, status=200)
+    
+class EndGameEarlyVoteView(View):
+
+    def post(self, request) -> JsonResponse:
+
+        # TODO: THIS IS A STUB
+        # TODO: THIS IS A STUB
+        # TODO: THIS IS A STUB
+
+        return JsonResponse({'message': 'This feature has not been implemented yet.'}, status=200)

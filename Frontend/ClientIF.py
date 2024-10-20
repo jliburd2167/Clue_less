@@ -194,15 +194,20 @@ class ClientIF():
         except requests.RequestException as e:
             print(f"Start game failed: {e}")
 
-    def chooseCharacter(self):
+    def chooseCharacter(self, arg):
         """
         Chooses a character in the game lobby.
 
         Raises:
             RequestException: If the choose character request fails.
         """
+
+        data = {
+                'key': arg,
+            }
+        
         try:
-            response = self.session.post(f"{self.base_url}/choose_character/")
+            response = self.session.post(f"{self.base_url}/choose_character/", data=data)
             response.raise_for_status()  # Raise an error for bad responses
             print(response.json())
 
@@ -210,19 +215,115 @@ class ClientIF():
             print(f"Choose character failed: {e}")
 
     def playerMove(self, arg):
-        pass
+        """
+        Move a player token.
 
-    def makeSuggestion(self, arg):
-        pass
+        Raises:
+            RequestException: If the player move fails.
+        """
 
-    def makeAccusation(self, arg):
-        pass
+        data = {
+                'room': arg,
+            }
+        
+        try:
+            response = self.session.post(f"{self.base_url}/player_move/", data=data)
+            response.raise_for_status()  # Raise an error for bad responses
+            print(response.json())
 
-    def EndTurn(self, arg):
-        pass
+        except requests.RequestException as e:
+            print(f"Player move failed: {e}")
+
+    def makeSuggestion(self, args):
+        """
+        Make a suggestion.
+
+        Raises:
+            RequestException: If the suggestion fails.
+        """
+
+        character, weapon, room = args.split()
+        data = {
+                'character': character,
+                'weapon': weapon,
+                'room': room,
+            }
+        
+        try:
+            response = self.session.post(f"{self.base_url}/make_suggestion/", data=data)
+            response.raise_for_status()  # Raise an error for bad responses
+            print(response.json())
+
+        except requests.RequestException as e:
+            print(f"Make suggestion failed: {e}")
+
+    def makeAccusation(self, args):
+        """
+        Make an accusation.
+
+        Raises:
+            RequestException: If the accusation fails.
+        """
+
+        character, weapon, room = args.split()
+        data = {
+                'character': character,
+                'weapon': weapon,
+                'room': room,
+            }
+        
+        try:
+            response = self.session.post(f"{self.base_url}/make_accusation/", data=data)
+            response.raise_for_status()  # Raise an error for bad responses
+            print(response.json())
+
+        except requests.RequestException as e:
+            print(f"Make accusation failed: {e}")
+
+    def EndTurn(self, ws):
+        """
+        Ends a player's turn.
+
+        Raises:
+            RequestException: If the end turn request fails.
+        """
+        try:
+            response = self.session.post(f"{self.base_url}/end_turn/")
+            response.raise_for_status()  # Raise an error for bad responses
+            print(response.json())
+
+        except requests.RequestException as e:
+            print(f"End turn failed: {e}")
+
+    def EndGameEarlyRequest(self, ws):
+        """
+        Ends game early request.
+
+        Raises:
+            RequestException: If the request to end the game early fails.
+        """
+        try:
+            response = self.session.post(f"{self.base_url}/end_game_early_request/")
+            response.raise_for_status()  # Raise an error for bad responses
+            print(response.json())
+
+        except requests.RequestException as e:
+            print(f"End game early request failed: {e}")
 
     def EndGameEarlyRequest(self, arg):
-        pass
+        """
+        Ends game early vote.
+
+        Raises:
+            RequestException: If the vote to end the game early fails.
+        """
+        try:
+            response = self.session.post(f"{self.base_url}/end_game_early_vote/")
+            response.raise_for_status()  # Raise an error for bad responses
+            print(response.json())
+
+        except requests.RequestException as e:
+            print(f"End game early vote failed: {e}")
 
     def exit(self, arg):
         """

@@ -77,40 +77,49 @@ class cmdClientIF(cmd.Cmd):
         """Receive messages from the server: receive"""
         self.client.receive(arg)
 
-    def do_createGame(self, arg):
+    def do_createGame(self, ws):
         """Create a game lobby: create_game"""
-        self.client.createGameRequest(arg)
+        self.client.createGame()
 
     def do_joinGame(self, arg):
         """Join a game lobby: join_game <key>"""
         self.client.joinGame(arg)
 
-    def do_leaveGame(self, arg):
+    def do_leaveGame(self, ws):
         """Leave a game lobby: leave_game"""
-        self.client.leaveGame(arg)
+        self.client.leaveGame()
 
-    def do_startGame(self, arg):
+    def do_startGame(self, ws):
         """Start a game: leave_game"""
-        self.client.startGame(arg)
+        self.client.startGame()
 
     def do_chooseCharacter(self, arg):
         """Choose a character: choose_character <character_name>"""
         self.client.chooseCharacter(arg)
-
+        
     def do_playerMove(self, arg):
-        pass
+        """Move your piece: player_move <room>"""
+        self.client.chooseCharacter(arg)
 
     def do_makeSuggestion(self, arg):
-        pass
+        """Make a suggestion: make_suggestion <perpetrator> <weapon> <room>"""
+        self.client.makeSuggestion(arg)
 
     def do_makeAccusation(self, arg):
-        pass
+        """Make an accusation: make_suggestion <perpetrator> <weapon> <room>"""
+        self.client.makeAccusation(arg)
 
-    def do_EndTurn(self, arg):
-        pass
+    def do_EndTurn(self, ws):
+        """End your turn: end_turn"""
+        self.client.endTurn()
 
-    def do_EndGameEarlyRequest(self, arg):
-        pass
+    def do_EndGameEarlyRequest(self):
+        """End game early request: end_game_early"""
+        self.client.EndGameEarlyRequest()
+
+    def do_EndGameEarlyVote(self):
+        """End game early vote: end_game_vote"""
+        self.client.EndGameEarlyVote()
 
     def do_exit(self, arg):
         "Exit the CLI: exit"
