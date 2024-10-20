@@ -77,11 +77,25 @@ class cmdClientIF(cmd.Cmd):
         """Receive messages from the server: receive"""
         self.client.receive(arg)
 
-    def do_joinGameRequest(self, arg):
-        pass
+    def do_createGame(self, arg):
+        """Create a game lobby: create_game"""
+        self.client.createGameRequest(arg)
 
-    def do_startGameRequest(self, arg):
-        pass
+    def do_joinGame(self, arg):
+        """Join a game lobby: join_game <key>"""
+        self.client.joinGame(arg)
+
+    def do_leaveGame(self, arg):
+        """Leave a game lobby: leave_game"""
+        self.client.leaveGame(arg)
+
+    def do_startGame(self, arg):
+        """Start a game: leave_game"""
+        self.client.startGame(arg)
+
+    def do_chooseCharacter(self, arg):
+        """Choose a character: choose_character <character_name>"""
+        self.client.chooseCharacter(arg)
 
     def do_playerMove(self, arg):
         pass
