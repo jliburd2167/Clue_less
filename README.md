@@ -19,7 +19,6 @@ JHU Foundations of Software Engineering Team Project
  Create a new conda environment using the clue_release_env.yml file.
  
     conda env create -f clue_env_release.yml -n clue_release
-
 note: This step only needs to be done once.
    	
     conda activate clue_release
