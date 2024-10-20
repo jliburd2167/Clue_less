@@ -70,7 +70,7 @@ class cmdClientIF(cmd.Cmd):
         self.client.send(message)
 
     def do_sendToAll(self, message):
-        """Send a message to all connected users: send_to_all <message>"""
+        """Send a message to all connected users: sendToAll <message>"""
         self.client.senToAll(message)
 
     def do_receive(self, arg):
@@ -78,47 +78,47 @@ class cmdClientIF(cmd.Cmd):
         self.client.receive(arg)
 
     def do_createGame(self, ws):
-        """Create a game lobby: create_game"""
+        """Create a game lobby: createGame"""
         self.client.createGame()
 
     def do_joinGame(self, arg):
-        """Join a game lobby: join_game <key>"""
+        """Join a game lobby: joinGame <key>"""
         self.client.joinGame(arg)
 
     def do_leaveGame(self, ws):
-        """Leave a game lobby: leave_game"""
+        """Leave a game lobby: leaveGame"""
         self.client.leaveGame()
 
     def do_startGame(self, ws):
-        """Start a game: leave_game"""
+        """Start a game: leaveGame"""
         self.client.startGame()
 
     def do_chooseCharacter(self, arg):
-        """Choose a character: choose_character <character_name>"""
+        """Choose a character: chooseCharacter <character_name>"""
         self.client.chooseCharacter(arg)
         
     def do_playerMove(self, arg):
-        """Move your piece: player_move <room>"""
+        """Move your piece: playerMove <room>"""
         self.client.chooseCharacter(arg)
 
     def do_makeSuggestion(self, arg):
-        """Make a suggestion: make_suggestion <perpetrator> <weapon> <room>"""
+        """Make a suggestion: makeSuggestion <perpetrator> <weapon> <room>"""
         self.client.makeSuggestion(arg)
 
     def do_makeAccusation(self, arg):
-        """Make an accusation: make_suggestion <perpetrator> <weapon> <room>"""
+        """Make an accusation: makeAccusation <perpetrator> <weapon> <room>"""
         self.client.makeAccusation(arg)
 
     def do_EndTurn(self, ws):
-        """End your turn: end_turn"""
+        """End your turn: endTurn"""
         self.client.endTurn()
 
     def do_EndGameEarlyRequest(self):
-        """End game early request: end_game_early"""
+        """End game early request: endGameEarly"""
         self.client.EndGameEarlyRequest()
 
     def do_EndGameEarlyVote(self):
-        """End game early vote: end_game_vote"""
+        """Vote to end the game early: endGameEarlyVote"""
         self.client.EndGameEarlyVote()
 
     def do_exit(self, arg):
