@@ -29,6 +29,14 @@ When you are done working, you can deactivate the Conda evironment.
 
 	conda deactivate
 
+## Databse Set up
+
+### Migrate the Databse
+Navigate to the root directory of rthe respository and type the following commands:
+
+	python manage.py makemigrations
+	python manage.py migrate
+
 ## Updating environment dependencies
 If you make any changes to the dependencies, remember to update the clue_env_release.yml file using:
 
@@ -36,7 +44,7 @@ If you make any changes to the dependencies, remember to update the clue_env_rel
 
 ## Launching the Environment
 
-Navigate to the root directory of the repository and type the following command from inside the cl hue_release environment to lauch the server application:
+Navigate to the root directory of the repository and type the following command from inside the clue_release environment to lauch the server application:
 
 	daphne clue_less.asgi:application
 
