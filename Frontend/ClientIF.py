@@ -2,81 +2,124 @@ import requests
 
 class ClientIF():
     """
-    Client IF: Interface between the client and the Server
+    Client Interface: Interface between the client and the server.
+
+    This class provides methods for the Authentication, Game Management,
+    and Message Translator subsystems and interacting with the server for game-related functionalities.
+
+    Attributes:
+        base_url (str): The base URL of the server.
+        session (requests.Session): The HTTP session used for making requests.
+        is_logged_in (bool): A flag indicating whether the user is logged in.
     """
-    def __init__(self, base_url):
-        super().__init__()
+
+    def __init__(self, base_url: str) -> None:
+        """
+        Initialize the ClientIF with the base URL.
+
+        Args:
+            base_url (str): The base URL of the server.
+        """
         self.base_url = base_url
-        self.session = requests.Session()
-        self.is_logged_in = False
+        self.session = requests.Session()  # Create a session for persistent connections
+        self.is_logged_in = False  # Track login status
         print(f"Client IF: base URL: {base_url}")
 
-    def setCookies(self, args):
+    def setCookies(self, args: str) -> None:
+        """
+        Set cookies for the session (to be implemented).
+        """
+        # TODO: Implement cookie handling
         pass
 
-    def register(self, args):
-        """Register a new account: register <username> <password>"""
-        #include basic error handling
+    def register(self, args: str) -> None:
+        """
+        Register a new account with the provided username and passwords.
 
-        username, password1, password2 = args.split()
+        Args:
+            args (str): A string containing username, password1, and password2.
 
-        data = {
-        'username': username,
-        'password1': password1,
-        'password2': password2,
-        }
+        Raises:
+            ValueError: If the input format is incorrect or registration fails.
+        """
+        try:
+            username, password1, password2 = args.split()
+            data = {
+                'username': username,
+                'password1': password1,
+                'password2': password2,
+            }
 
-        response = self.session.post(f"{self.base_url}/register/", data)
-        print(response.json())
+            response = self.session.post(f"{self.base_url}/register/", data=data)
+            response.raise_for_status()  # Raise an error for bad responses
+            print(response.json())
 
+        except ValueError:
+            print("Error: Please provide username, password1, and password2.")
+        except requests.RequestException as e:
+            print(f"Registration failed: {e}")
 
-    def login(self, args):
-        """Login to your account: login <username> <password>"""
-        username, password = args.split()
-        print(f"****************:::     {self.base_url}/login/")
-        response = self.session.post(f"{self.base_url}/login/", data={'username': username, 'password': password})
-        if response.status_code == 200:
+    def login(self, args: str) -> None:
+        """
+        Log in to the account using the provided username and password.
+
+        Args:
+            args (str): A string containing username and password.
+
+        Raises:
+            ValueError: If the input format is incorrect.
+        """
+        try:
+            username, password = args.split()
+            response = self.session.post(f"{self.base_url}/login/", data={'username': username, 'password': password})
+            response.raise_for_status()  # Raise an error for bad responses
+
             self.is_logged_in = True
             print("Logged in successfully.")
-        else:
-            print("Login failed:", response.json())
 
-    def logout(self, arg):
-        """Log out of your account: logout"""
+        except ValueError:
+            print("Error: Please provide both username and password.")
+        except requests.RequestException as e:
+            print(f"Login failed: {e}")
+
+    def logout(self) -> None:
+        """
+        Log out of the current account.
+
+        Raises:
+            requests.RequestException: If the logout request fails.
+        """
         response = self.session.post(f"{self.base_url}/logout/")
-        if response.status_code == 200:
+        try:
+            response.raise_for_status()  # Raise an error for bad responses
             self.is_logged_in = False
             print("Logged out successfully.")
-        else:
-            print("Logout failed:", response.json())
+        except requests.RequestException as e:
+            print(f"Logout failed: {e}")
 
-    def send(self, args):
-        """Send a message to another user: send <username> <message>"""
+    def send(self, args: str) -> None:
+        """
+        Send a message to another user.
+
+        Args:
+            args (str): A string containing the recipient's username and the message.
+
+        Raises:
+            ValueError: If the user is not logged in or input format is incorrect.
+        """
         if not self.is_logged_in:
             print("You must be logged in to send messages.")
             return
 
-        username, message = args.split(maxsplit=1)
-        response = self.session.post(f"{self.base_url}/send-message/", data={'recipient': username, 'message': message})
-        print(response.json())
-
-    def senToAll(self, message):
-        """Send a message to all connected users: send_to_all <message>"""
-        if not self.is_logged_in:
-            print("You must be logged in to send messages.")
-            return
-
-        response = self.session.post(f"{self.base_url}/send-message-to-all/", data={'message': message})
-        print(response.json())
-
-    def receive(self, arg):
-        """Receive messages from the server: receive"""
-        if not self.is_logged_in:
-            print("You must be logged in to receive messages.")
-            return
-
-        response = self.session.get(f"{self.base_url}/receive-messages/")
-        print(response.json())
+        try:
+            username, message = args.split(maxsplit=1)
+            response = self.session.post(f"{self.base_url}/send-message/", data={'recipient': username, 'message': message})
+            response.raise_for_status()  # Raise an error for bad responses
+            print(response.json())
+        except ValueError:
+            print("Error: Please provide both username and message.")
+        except requests.RequestException as e:
+            print(f"Failed to send message: {e}")
 
     def joinGameRequest(self, arg):
         pass
@@ -100,6 +143,14 @@ class ClientIF():
         pass
 
     def exit(self, arg):
-        'Exit the CLI: exit'
+        """
+        Exit the CLI.
+
+        Args:
+            arg (str): Command to exit.
+
+        Returns:
+            bool: Always returns True to indicate exit.
+        """
         print("Thank you. Goodbye!")
         return True
