@@ -27,10 +27,7 @@ jobs:
         environment-file: clue_env_release.yml  # Use your environment file here
     - name: Install dependencies
       run: |
-        #conda install --file clue_env_release.yml  # Install dependencies listed in requirements.txt
         conda install flake8 pytest  # Install flake8 and pytest using conda
-    - name: Lint with flake8
-      run: |
         flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
         flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
 #    - name: Test with pytest
